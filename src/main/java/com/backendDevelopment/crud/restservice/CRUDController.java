@@ -8,19 +8,19 @@ import java.util.List;
 public class CRUDController {
     @Autowired
     private PaintService service;
-    @PostMapping("/create")
+    @PostMapping("/order")
     public void create(@RequestBody Order order) {
         service.addOrder(order);
     }
-    @GetMapping("/read")
+    @GetMapping("/view")
     public List<Order> read() {
         return service.getOrders();
     }
-    @PutMapping("/update/{id}")
+    @PutMapping("/replace/{id}")
     public void update(@PathVariable(value = "id") Integer OrderId,@RequestBody Order order) {
         service.updateOrder(OrderId,order);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/remove/{id}")
     public void delete(@PathVariable(value = "id") Integer OrderId) {
         service.deleteOrder(OrderId);
     }
