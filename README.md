@@ -22,7 +22,7 @@ Get : localhost:8080/view
 
 //Add
 
-Post : localhost:8080/create
+Post : localhost:8080/order
 
 Request Body :
 { "id" : 2, "date" : "2020-02-14", "delivery" : 1, "address" : { "line1" : "address2 test string" }, "customer" : { "name" : "Verince", "phoneNumber" : "01825515110", "address" : { "line1" : "address2 test string" }}, "item" : [{ "amount" : 1, "paint" : { "color" : "Red", "type" : "EasyToClean", "litre" : 2 }}]}
