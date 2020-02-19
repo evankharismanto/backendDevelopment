@@ -1,5 +1,6 @@
 package com.backendDevelopment.dbRelation.dbrestservice;
 
+import com.backendDevelopment.dbRelation.dbrestservice.controllers.CRUDController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
