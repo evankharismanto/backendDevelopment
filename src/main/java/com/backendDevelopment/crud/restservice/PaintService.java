@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class PaintService {
-    private List<Order> ordersObj = new ArrayList<Order>();
+    private List<Order> ordersObj = new ArrayList<>();
     public List<Order> getOrders(){
         return ordersObj;
     }
