@@ -1,8 +1,9 @@
-package com.backendDevelopment.dbRelation.dbrestservice.objects;
+package com.backendDevelopment.dbRelation.dbrestservice.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import javax.validation.constraints.NotBlank;
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "m_address")
@@ -12,11 +13,9 @@ import javax.persistence.*;
 @Builder
 public class Address{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
-
+    @NotBlank(message = "address line1 cannot be null")
     @NonNull String line1;
-
     String line2;
-
     String line3;
 
     @JsonIgnore

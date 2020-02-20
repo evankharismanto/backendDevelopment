@@ -1,16 +1,18 @@
 package com.backendDevelopment.dbRelation.dbrestservice.services;
 
-import com.backendDevelopment.dbRelation.dbrestservice.objects.*;
 import com.backendDevelopment.dbRelation.dbrestservice.repositories.*;
-import lombok.RequiredArgsConstructor;
+import com.backendDevelopment.dbRelation.dbrestservice.models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-    private final OrderRepository orderRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     public Order store(Order order) {
         return orderRepository.save(order);
