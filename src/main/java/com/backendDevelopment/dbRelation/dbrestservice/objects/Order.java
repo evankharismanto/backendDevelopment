@@ -25,7 +25,7 @@ public class Order{
     @JoinColumn(name="customer_id")
     Customer customer;
 
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="order_id")
     List<Item> items;
 }
