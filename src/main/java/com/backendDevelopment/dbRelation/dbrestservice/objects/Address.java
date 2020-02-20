@@ -20,6 +20,10 @@ public class Address{
     String line3;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "address",orphanRemoval = true)
+    @OneToOne(mappedBy = "address")
     Customer customer;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "address")
+    Order order;
 }

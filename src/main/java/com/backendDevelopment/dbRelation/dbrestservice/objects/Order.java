@@ -18,6 +18,10 @@ public class Order{
     @NonNull Integer delivery;
 
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name="address_id")
+    Address address;
+
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name="customer_id")
     Customer customer;
 

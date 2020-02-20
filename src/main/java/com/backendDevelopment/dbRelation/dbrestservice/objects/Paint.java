@@ -20,6 +20,6 @@ public class Paint {
     @NonNull Integer litre;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "paint",orphanRemoval = true)
+    @OneToOne(mappedBy = "paint")
     Item item;
 }

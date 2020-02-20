@@ -31,9 +31,11 @@ create table t_order(
  id int unsigned not null auto_increment,
  date datetime,
  delivery tinyint,
+ address_id int unsigned default null,
  customer_id int unsigned default null,
  primary key (id),
- foreign key (customer_id) references m_customer(id) 
+ foreign key (customer_id) references m_customer(id),
+ foreign key (address_id) references m_address(id)
 );
 
 create table t_item(

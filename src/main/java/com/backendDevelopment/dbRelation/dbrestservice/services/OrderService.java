@@ -32,17 +32,21 @@ public class OrderService {
     public Order store(Integer id, Order order){
         List<Item> newItems = order.getItems();
         Customer newCustomer = order.getCustomer();
-        Address newAddress = newCustomer.getAddress();
+        Address newDelvAddress = order.getAddress();
+        Address newCustAddress = newCustomer.getAddress();
 
+        Order entityOrder= orderRepository.findById(id).get();
+        Address EntityDelvAddress = addressRepository.findById(entityOrder.getAddress().getId()).get();
         //storing orderDetails
-        Order orderEntity = orderRepository.findById(id).get();
-        storingOrderDetails(orderEntity,order);
+        storingOrderDetails(entityOrder,order);
+        //storing delvAddressDetails
+        storingAddressDetails(EntityDelvAddress, newDelvAddress);
+        Customer entityCustomer = customerRepository.findById(entityOrder.getCustomer().getId()).get();
+        Address EntityCustAddress = addressRepository.findById(entityCustomer.getAddress().getId()).get();
         //storing customerDetails
-        Customer customerEntity = customerRepository.findById(orderEntity.getCustomer().getId()).get();
-        storingCustomerDetails(customerEntity,newCustomer);
-        //storing addressDetails
-        Address addressEntity = addressRepository.findById(customerEntity.getAddress().getId()).get();
-        storingAddressDetails(addressEntity,newAddress);
+        storingCustomerDetails(entityCustomer,newCustomer);
+        //storing custAddressDetails
+        storingAddressDetails(EntityCustAddress,newCustAddress);
 
         for(var item:newItems){
             //storing itemDetails
@@ -56,7 +60,6 @@ public class OrderService {
     }
 
 
-
     private void storingOrderDetails(Order existingOrder,Order newOrder){
         existingOrder.setDate(newOrder.getDate());
         existingOrder.setDelivery(newOrder.getDelivery());
@@ -68,10 +71,15 @@ public class OrderService {
         customerRepository.save(existingCustomer);
     }
     private void storingAddressDetails(Address existingAddress,Address newAddress) {
-        existingAddress.setLine1(newAddress.getLine1());
-        existingAddress.setLine2(newAddress.getLine2());
-        existingAddress.setLine3(newAddress.getLine3());
-        addressRepository.save(existingAddress);
+        if(newAddress == null){
+            addressRepository.deleteById(existingAddress.getId());
+        }
+        else {
+            existingAddress.setLine1(newAddress.getLine1());
+            existingAddress.setLine2(newAddress.getLine2());
+            existingAddress.setLine3(newAddress.getLine3());
+            addressRepository.save(existingAddress);
+        }
     }
     private void storingItemDetails(Item existingItem,Item newItem) {
         existingItem.setAmount(newItem.getAmount());

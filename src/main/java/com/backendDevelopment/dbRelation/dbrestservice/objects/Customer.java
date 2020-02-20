@@ -23,7 +23,7 @@ public class Customer{
     Address address;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "customer",orphanRemoval = true)
+    @OneToOne(mappedBy = "customer")
     Order order;
 }
 
