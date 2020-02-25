@@ -3,7 +3,11 @@ package com.backendDevelopment.withtest.dbrestservice.unittest;
 import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
 import com.backendDevelopment.withtest.dbrestservice.mockinjections.InjectMock;
 import com.backendDevelopment.withtest.dbrestservice.mockinjections.MockOrderRepository;
+import com.backendDevelopment.withtest.dbrestservice.models.Order;
 import com.backendDevelopment.withtest.dbrestservice.repositories.OrderRepository;
+import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -20,21 +24,28 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 public class OrderRestUnitTest{
     @Autowired
     @Qualifier("mockRepository")
-    MockInterface mockInterface;
+    MockInterface mockRepositoryInterface;
+    @Autowired
+    @Qualifier("mockService")
+    MockInterface mockServiceInterface;
+
 
     @BeforeEach
     void setUp(){
-        mockInterface.InitiateMockOrder();
+        mockRepositoryInterface.InitiateMockOrder();
+        mockServiceInterface.InitiateMockOrder();
     }
 
     @Test
     void OrderReadRestTest() throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        InjectMock mockValue = mockInterface.getMockValue();
+        InjectMock mockValue = mockRepositoryInterface.getMockValue();
         MockMvc mockMvc = mockValue.getMockMvc();
         //region assertion
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/view")
@@ -83,6 +94,27 @@ public class OrderRestUnitTest{
         //endregion
         System.out.println(mvcResult.getResponse());
 
-        Mockito.verify((OrderRepository)mockInterface.getServiceController()).findAll();
+        Mockito.verify((OrderRepository)mockRepositoryInterface.getServiceController()).findAll();
+    }
+
+    @Test
+    void OrderSaveRestTest() throws Exception{
+        ObjectWriter objectWriter = (new ObjectMapper()).writerWithDefaultPrettyPrinter();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        mockServiceInterface.InitiateMockOrder();
+        OrderService ordService = (OrderService)mockServiceInterface.getServiceController();
+        InjectMock mockEntity = mockServiceInterface.getMockValue();
+        //region assertion
+        MvcResult mvcResult = mockEntity.getMockMvc().perform(
+                MockMvcRequestBuilders.post("/order")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectWriter.writeValueAsString(mockEntity.getOrders().get(0)))
+                )
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+        //verified in answer methods
+        //OrderRepository ordRepository = (OrderRepository)mockRepositoryInterface.getServiceController();
+        //Order storedOrder = ordService.store(mockRepositoryInterface.getMockValue().getOrders().get(0));
+        //Mockito.verify(ordRepository).save(Mockito.any(Order.class));
     }
 }

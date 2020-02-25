@@ -4,7 +4,9 @@ import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
 import com.backendDevelopment.withtest.dbrestservice.models.Order;
 import com.backendDevelopment.withtest.dbrestservice.repositories.OrderRepository;
 import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,14 +25,23 @@ public class OrderServiceUnitTest {
     MockInterface mockInterface;
     @Autowired
     OrderService ordService;
+
+    @BeforeEach
+    void setUp(){
+        mockInterface.InitiateMockOrder();
+    }
+
     @Test
     void OrderReadServiceTest() throws Exception {
-        mockInterface.InitiateMockOrder();
         assertEquals(ordService.getAll(),mockInterface.getMockValue().getOrders());
     }
 
-    /*@Test
+    @Test
     void OrderSaveServiceTest() throws Exception {
-        ordService.store()
-    }*/
+        OrderRepository ordRepository = (OrderRepository)mockInterface.getServiceController();
+        Order storedOrder = ordService.store(mockInterface.getMockValue().getOrders().get(0));
+        Mockito.verify(ordRepository).save(Mockito.any(Order.class));
+        //verified in answer methods
+        assertEquals(storedOrder,mockInterface.getMockValue().getOrders().get(0));
+    }
 }

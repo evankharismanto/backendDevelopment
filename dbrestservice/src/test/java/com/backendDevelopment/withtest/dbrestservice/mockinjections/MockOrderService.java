@@ -46,6 +46,9 @@ public class MockOrderService implements MockInterface {
         Mockito.when(orderService.getAll()).thenReturn(
                 mockItems
         );
+        Mockito.when(orderService.store(Mockito.any(Order.class))).thenAnswer(
+                i -> i.getArguments()[0]
+        );
     }
     @Override
     public Object getServiceController() {

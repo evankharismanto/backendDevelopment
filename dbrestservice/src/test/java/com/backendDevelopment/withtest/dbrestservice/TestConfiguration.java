@@ -1,9 +1,7 @@
 package com.backendDevelopment.withtest.dbrestservice;
 
-import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
-import com.backendDevelopment.withtest.dbrestservice.mockinjections.MockOrderService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 
 import java.util.TimeZone;
 
