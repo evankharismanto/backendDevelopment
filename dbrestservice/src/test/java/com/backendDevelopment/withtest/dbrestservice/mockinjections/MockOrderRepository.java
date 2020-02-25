@@ -47,6 +47,10 @@ public class MockOrderRepository implements MockInterface {
                   return null;
               }
         });
+        Mockito.when(orderRepository.findById(Mockito.any(Integer.class)))
+                .thenAnswer(invocation ->
+                        mockItems.stream().filter(r -> r.getId() == invocation.getArgument(0)).findFirst()
+                );
     }
 
     @Override

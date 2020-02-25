@@ -28,16 +28,25 @@ public class OrderRestUnitTest extends RestMockMvc {
 
     @Test
     void OrderReadRestTest() throws Exception {
+        OrderRepository ordRepository = (OrderRepository)mockRepositoryInterface.getServiceController();
         MvcResult mvcResult = assertMockMvcRead(mockRepositoryInterface);
         System.out.println(mvcResult.getResponse());
-        Mockito.verify((OrderRepository)mockRepositoryInterface.getServiceController()).findAll();
+        Mockito.verify(ordRepository).findAll();
     }
 
     @Test
     void OrderSaveRestTest() throws Exception{
-        MvcResult mvcResult = assertMockMvcSave(mockServiceInterface);
+        OrderRepository ordRepository = (OrderRepository)mockRepositoryInterface.getServiceController();
+        MvcResult mvcResult = assertMockMvcSave(mockRepositoryInterface);
         System.out.println(mvcResult.getResponse());
-        OrderService ordService = (OrderService)mockServiceInterface.getServiceController();
-        Mockito.verify(ordService).store(Mockito.any(Order.class));
+        Mockito.verify(ordRepository).save(Mockito.any(Order.class));
+    }
+
+    @Test
+    void OrderUpdateRestTest() throws Exception{
+        OrderRepository ordRepository = (OrderRepository)mockRepositoryInterface.getServiceController();
+        MvcResult mvcResult = assertMockMvcUpdate(mockRepositoryInterface);
+        System.out.println(mvcResult.getResponse());
+        Mockito.verify(ordRepository).save(Mockito.any(Order.class));
     }
 }

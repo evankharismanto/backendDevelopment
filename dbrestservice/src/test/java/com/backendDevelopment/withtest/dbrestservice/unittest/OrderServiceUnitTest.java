@@ -37,4 +37,12 @@ public class OrderServiceUnitTest {
         Mockito.verify(ordRepository).save(Mockito.any(Order.class));
         assertEquals(storedOrder,mockInterface.getMockValue().getOrders().get(0));
     }
+
+    @Test
+    void OrderUpdateServiceTest() throws Exception {
+        OrderRepository ordRepository = (OrderRepository)mockInterface.getServiceController();
+        Order storedOrder = ordService.store(mockInterface.getMockValue().getOrders().get(0).getId(),mockInterface.getMockValue().getOrders().get(0));
+        Mockito.verify(ordRepository).save(Mockito.any(Order.class));
+        assertEquals(storedOrder,mockInterface.getMockValue().getOrders().get(0));
+    }
 }

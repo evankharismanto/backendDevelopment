@@ -34,4 +34,12 @@ public class OrderControllerUnitTest extends RestMockMvc {
         OrderService ordService = (OrderService)mockInterface.getServiceController();
         Mockito.verify(ordService).store(Mockito.any(Order.class));
     }
+
+    @Test
+    void OrderUpdateControllerTest() throws Exception {
+        MvcResult mvcResult = assertMockMvcUpdate(mockInterface);
+        System.out.println(mvcResult.getResponse());
+        OrderService ordService = (OrderService)mockInterface.getServiceController();
+        Mockito.verify(ordService).store(Mockito.any(Integer.class),Mockito.any(Order.class));
+    }
 }
