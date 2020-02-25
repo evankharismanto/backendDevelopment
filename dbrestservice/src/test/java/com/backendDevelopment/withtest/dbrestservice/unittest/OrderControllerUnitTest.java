@@ -13,9 +13,7 @@ import org.springframework.http.MediaType;
 import com.fasterxml.jackson.databind.*;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.*;
 
 @SpringBootTest
 public class OrderControllerUnitTest {
@@ -77,7 +75,6 @@ public class OrderControllerUnitTest {
                 .andReturn();
         //endregion
         System.out.println(mvcResult.getResponse());
-
         Mockito.verify((OrderService)mockInterface.getServiceController()).getAll();
     }
 
@@ -134,7 +131,6 @@ public class OrderControllerUnitTest {
                         mockEntity.getOrders().get(0).getItems().get(1).getPaint().getLitre()).exists())
                 .andDo(MockMvcResultHandlers.print());
         //endregion
-
         Mockito.verify(ordService).store(Mockito.any(Order.class));
     }
 }

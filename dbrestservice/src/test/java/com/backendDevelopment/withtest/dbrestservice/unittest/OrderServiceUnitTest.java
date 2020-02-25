@@ -1,20 +1,14 @@
 package com.backendDevelopment.withtest.dbrestservice.unittest;
 
-import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
-import com.backendDevelopment.withtest.dbrestservice.models.Order;
 import com.backendDevelopment.withtest.dbrestservice.repositories.OrderRepository;
+import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
 import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.backendDevelopment.withtest.dbrestservice.models.Order;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.*;
+import org.junit.jupiter.api.*;
+import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -41,7 +35,6 @@ public class OrderServiceUnitTest {
         OrderRepository ordRepository = (OrderRepository)mockInterface.getServiceController();
         Order storedOrder = ordService.store(mockInterface.getMockValue().getOrders().get(0));
         Mockito.verify(ordRepository).save(Mockito.any(Order.class));
-        //verified in answer methods
         assertEquals(storedOrder,mockInterface.getMockValue().getOrders().get(0));
     }
 }

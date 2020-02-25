@@ -1,30 +1,19 @@
 package com.backendDevelopment.withtest.dbrestservice.unittest;
 
-import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
-import com.backendDevelopment.withtest.dbrestservice.mockinjections.InjectMock;
-import com.backendDevelopment.withtest.dbrestservice.mockinjections.MockOrderRepository;
-import com.backendDevelopment.withtest.dbrestservice.models.Order;
 import com.backendDevelopment.withtest.dbrestservice.repositories.OrderRepository;
+import com.backendDevelopment.withtest.dbrestservice.mockinjections.InjectMock;
+import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
 import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.test.web.servlet.result.*;
+import org.springframework.test.web.servlet.*;
+import org.springframework.http.MediaType;
+import com.fasterxml.jackson.databind.*;
+import org.junit.jupiter.api.*;
+import org.mockito.Mockito;
+import java.text.*;
 
 @SpringBootTest
 public class OrderRestUnitTest{
@@ -34,7 +23,6 @@ public class OrderRestUnitTest{
     @Autowired
     @Qualifier("mockService")
     MockInterface mockServiceInterface;
-
 
     @BeforeEach
     void setUp(){
@@ -93,7 +81,6 @@ public class OrderRestUnitTest{
                 .andReturn();
         //endregion
         System.out.println(mvcResult.getResponse());
-
         Mockito.verify((OrderRepository)mockRepositoryInterface.getServiceController()).findAll();
     }
 
@@ -112,9 +99,7 @@ public class OrderRestUnitTest{
                 )
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
+        //endregion
         //verified in answer methods
-        //OrderRepository ordRepository = (OrderRepository)mockRepositoryInterface.getServiceController();
-        //Order storedOrder = ordService.store(mockRepositoryInterface.getMockValue().getOrders().get(0));
-        //Mockito.verify(ordRepository).save(Mockito.any(Order.class));
     }
 }

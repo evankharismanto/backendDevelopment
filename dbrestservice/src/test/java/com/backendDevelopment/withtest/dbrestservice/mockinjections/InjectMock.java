@@ -1,27 +1,19 @@
 package com.backendDevelopment.withtest.dbrestservice.mockinjections;
 
-import com.backendDevelopment.withtest.dbrestservice.models.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.backendDevelopment.withtest.dbrestservice.models.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import lombok.*;
 
 @Getter @Setter
 @AutoConfigureMockMvc
 public class InjectMock{
     @Autowired
     private MockMvc mockMvc;
-
     private List<Order> orders;
-
     public void injectMockValue(){
         //region init mock order list
         orders = new ArrayList<>(Arrays.asList(
