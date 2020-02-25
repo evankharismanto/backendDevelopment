@@ -1,8 +1,12 @@
 package com.backendDevelopment.withtest.dbrestservice.mockinjections;
 
 import com.backendDevelopment.withtest.dbrestservice.models.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.sql.Date;
@@ -10,14 +14,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter @Setter
 @AutoConfigureMockMvc
 public class InjectMock{
     @Autowired
-    protected MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-    protected List<Order> orders;
+    private List<Order> orders;
 
-    protected void injectMockValue(){
+    public void injectMockValue(){
         //region init mock order list
         orders = new ArrayList<>(Arrays.asList(
                 Order.builder()
