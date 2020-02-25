@@ -12,6 +12,7 @@ import org.springframework.stereotype.*;
 import org.mockito.stubbing.Answer;
 import org.mockito.Mockito;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,9 +49,19 @@ public class MockOrderRepository implements MockInterface {
               }
         });
         Mockito.when(orderRepository.findById(Mockito.any(Integer.class)))
-                .thenAnswer(invocation ->
-                        mockItems.stream().filter(r -> r.getId() == invocation.getArgument(0)).findFirst()
-                );
+        .thenAnswer(invocation ->
+                mockItems.stream().filter(r -> r.getId() == invocation.getArgument(0)).findFirst()
+        );
+    }
+
+    @Override
+    public void ClearMockOrder(){
+        mockValue.injectMockValue();
+        List<Order> mockItems = mockValue.getOrders();
+        List<Order> orders = mockItems.stream().filter(r -> r.getId() != mockItems.get(0).getId()).collect(Collectors.toList());
+        Mockito.when(orderRepository.findAll()).thenReturn(
+                orders
+        );
     }
 
     @Override

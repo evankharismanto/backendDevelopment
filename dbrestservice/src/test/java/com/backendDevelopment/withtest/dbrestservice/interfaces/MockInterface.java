@@ -6,4 +6,5 @@ public interface MockInterface{
     InjectMock getMockValue();
     Object getServiceController();
     void InitiateMockOrder();
+    void ClearMockOrder();
 }

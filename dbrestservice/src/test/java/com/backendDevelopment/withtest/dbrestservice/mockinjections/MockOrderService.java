@@ -6,6 +6,7 @@ import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
 import com.backendDevelopment.withtest.dbrestservice.models.Order;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.stereotype.*;
+import java.util.stream.Collectors;
 import java.util.List;
 import org.mockito.*;
 import lombok.*;
@@ -33,6 +34,16 @@ public class MockOrderService implements MockInterface {
         );
         Mockito.when(orderService.store(Mockito.any(Order.class))).thenAnswer(
                 i -> i.getArguments()[0]
+        );
+    }
+
+    @Override
+    public void ClearMockOrder(){
+        mockValue.injectMockValue();
+        List<Order> mockItems = mockValue.getOrders();
+        List<Order> orders = mockItems.stream().filter(r -> r.getId() != mockItems.get(0).getId()).collect(Collectors.toList());
+        Mockito.when(orderService.getAll()).thenReturn(
+                orders
         );
     }
 
