@@ -26,6 +26,7 @@ public class OrderServiceIntegrationTest {
     @Test
     void OrderReadRestIntegrationTest() throws Exception {
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/view")
+                .header("userId","JUnit_Test")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();

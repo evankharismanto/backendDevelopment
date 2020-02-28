@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import com.fasterxml.jackson.databind.*;
 import java.text.*;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RestMockMvc {
     protected MvcResult assertMockMvcRead(MockInterface mockInterface) throws Exception{
@@ -17,6 +17,7 @@ public class RestMockMvc {
         InjectMock mockEntity = mockInterface.getMockValue();
         //region assertion
         MvcResult mvcResult = mockEntity.getMockMvc().perform(MockMvcRequestBuilders.get("/view")
+                .header("userId","JUnit_Test")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -70,6 +71,7 @@ public class RestMockMvc {
         //region assertion
         MvcResult mvcResult = mockEntity.getMockMvc().perform(
                 MockMvcRequestBuilders.post("/order")
+                        .header("userId","JUnit_Test")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectWriter.writeValueAsString(mockEntity.getOrders().get(0)))
         )
@@ -125,6 +127,7 @@ public class RestMockMvc {
         //region assertion
         MvcResult mvcResult = mockEntity.getMockMvc().perform(
                 MockMvcRequestBuilders.put("/replace/"+id)
+                        .header("userId","JUnit_Test")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8")
@@ -182,6 +185,7 @@ public class RestMockMvc {
         //region assertion
         MvcResult mvcResult = mockEntity.getMockMvc().perform(MockMvcRequestBuilders
             .delete("/remove/{id}", id)
+            .header("userId","JUnit_Test")
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
