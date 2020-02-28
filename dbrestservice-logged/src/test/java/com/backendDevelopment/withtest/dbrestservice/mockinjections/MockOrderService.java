@@ -4,6 +4,7 @@ import com.backendDevelopment.withtest.dbrestservice.controllers.CRUDController;
 import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
 import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
 import com.backendDevelopment.withtest.dbrestservice.models.Order;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.stereotype.*;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class MockOrderService implements MockInterface {
     @InjectMocks
     private CRUDController crudController;
     @Override
-    public void InitiateMockOrder(){
+    public void InitiateMockOrder() throws JsonProcessingException {
         MockitoAnnotations.initMocks(this);
         mockValue.setMockMvc(MockMvcBuilders.standaloneSetup(crudController).build());
         mockValue.injectMockValue();
@@ -38,7 +39,7 @@ public class MockOrderService implements MockInterface {
     }
 
     @Override
-    public void ClearMockOrder(){
+    public void ClearMockOrder() throws JsonProcessingException {
         mockValue.injectMockValue();
         List<Order> mockItems = mockValue.getOrders();
         List<Order> orders = mockItems.stream().filter(r -> r.getId() != mockItems.get(0).getId()).collect(Collectors.toList());

@@ -4,6 +4,7 @@ import com.backendDevelopment.withtest.dbrestservice.repositories.OrderRepositor
 import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
 import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
 import com.backendDevelopment.withtest.dbrestservice.models.Order;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.*;
 import org.junit.jupiter.api.*;
@@ -21,7 +22,7 @@ public class OrderServiceUnitTest {
     OrderService ordService;
 
     @BeforeEach
-    void setUp(){
+    void setUp() throws JsonProcessingException {
         mockInterface.InitiateMockOrder();
     }
 

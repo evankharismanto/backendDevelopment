@@ -4,6 +4,7 @@ import com.backendDevelopment.withtest.dbrestservice.interfaces.MockInterface;
 import com.backendDevelopment.withtest.dbrestservice.services.OrderService;
 import com.backendDevelopment.withtest.dbrestservice.reusable.RestMockMvc;
 import com.backendDevelopment.withtest.dbrestservice.models.Order;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.test.web.servlet.MvcResult;
@@ -17,7 +18,7 @@ public class OrderControllerUnitTest extends RestMockMvc {
     @Qualifier("mockService")
     MockInterface mockInterface;
     @BeforeEach
-    void setUp(){
+    void setUp() throws JsonProcessingException {
         mockInterface.InitiateMockOrder();
     }
 
