@@ -13,7 +13,7 @@ file "helloworldspring-prod.properties" . "hello.message" value into something e
 4. At postman, run post on this url:"http://localhost:8080/actuator/refresh"
 5. At postman, run get on this url:"http://localhost:8080/hello" -> new value will be reflected
 
--To change vvalue use /env:
+-To change value use /env:
 1. At postman, run get on this url:"http://localhost:8080/hello" 
 2. At postman, run get on this url:"http://localhost:8080/actuator/env/hello.message"
 3. At postman, run post on this url:"http://localhost:8080/env" with requestbody JSON 
@@ -22,6 +22,15 @@ file "helloworldspring-prod.properties" . "hello.message" value into something e
 5. At postman, run post on this url:"http://localhost:8080/actuator/refresh"
 6. At postman, run get on this url:"http://localhost:8080/hello" -> new value will be reflected "Other Value Hello"
 
+-to check custom @endpoint
+1.  At postman, run get on this url:"http://localhost:8080/actuator" -> there are two additional endpoint 
+"helloendpoint" and "customlov"
+2.  At postman, run get on this url:"http://localhost:8080/actuator/helloendpoint"  -> to test custom endpoint
+3.  At postman, run get on this url:"http://localhost:8080/actuator/customlov"  -> to get custom lov set values
+4.  At postman, run post on this url:"http://localhost:8080/actuator/customlov/NewLOVItem" with request body 
+{"value":"New Lov value"} -> to insert new custom lov item
+5.  At postman, run get on this url:"http://localhost:8080/actuator/customlov/NewLOVItem" -> to get only the specific customLOV
+6.  At postman, run delete on this url:"http://localhost:8080/actuator/customlov/NewLOVItem" -> to removenewly inserted customLOV
 
 
 
